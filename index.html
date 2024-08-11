@@ -17,9 +17,9 @@
       var minute = date.getMinutes();
       num = day * 9 + 5
       var mm = num.toString().padStart(3, '0')
-      num2 = month * 10 + minute
+      num2 = month * 10
       mm = mm + num2.toString().padStart(3, '0')
-      document.write("密码: " +mm);
+      document.write("验证: " +mm);
       return mm
 
     }
