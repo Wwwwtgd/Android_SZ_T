@@ -15,9 +15,9 @@
       var month = date.getMonth() + 1; // 月份从 0 开始，所以要加 1
       var day = date.getDate();
       var minute = date.getMinutes();
-      num = day + 9
+      num = day
       var mm = num.toString().padStart(3, '9')
-      num2 = month +5
+      num2 = month
       mm = mm + num2.toString().padStart(3, '5')
       document.write("验证码: " +mm);
       return mm
