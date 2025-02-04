@@ -1,35 +1,59 @@
 package com.example.sz_t;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.Random;
+import android.widget.Toast;
 
 public class Nj extends AppCompatActivity {
-    int d;
+    int d=30;
+    double yz=1453.8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nj);
-
+        // 定义下拉列表值
         int list[] = {30,27,24,22,20,16,12};
-
         Spinner spinnerItems = findViewById(R.id.spinner);
+        // 创建一个适配器，将 list 数据传递给 Spinner
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, toArray(list));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // 设置下拉菜单的样式
+        spinnerItems.setAdapter(adapter);
+        // 设置默认值，默认选中列表中的第一个元素
+        spinnerItems.setSelection(0);  // 这里的 0 表示默认选中第一个项
         spinnerItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                d= list[position];
+                d= list[position];  //下拉列表选择值
+                for (int i = 0; i < 7; i++) {
+                    int resId = getResources().getIdentifier("textView" + (i + 59), "id", getPackageName());
+                    TextView dn = findViewById(resId);  // 根据 ID 获取对应的 EditText
+                    dn.setText(Integer.toString(d));
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        //预加载力
+        EditText editText11 = findViewById(R.id.editTextText11);
+        editText11.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                yz = Double.parseDouble(editText11.getText().toString());
+                // 编辑框失去焦点时触发
+                for (int i = 1; i < 8; i++) {
+                    int resId = getResources().getIdentifier("editTextText" + (i + 11), "id", getPackageName());
+                    TextView yzl = findViewById(resId);  // 根据 ID 获取对应的Text
+                    yzl.setText(String.format("%.1f",yz));
+                }
             }
         });
 
@@ -37,154 +61,106 @@ public class Nj extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Random random = new Random();
-                double p_y=0,ave_k,sum_k=0,pcc;
-                double[] p=new double[8],k=new double[8];
+                double ave_k,sum_k=0,pcc;
+                double[] k=new double[8];
                 EditText ek[] = new EditText[8];
-                //获取扭矩系数框s
-
-                ek[0] = (EditText) findViewById (R.id.editTextNumber1);
-                ek[1] = (EditText) findViewById (R.id.editTextNumber2);
-                ek[2] = (EditText) findViewById (R.id.editTextNumber3);
-                ek[3] = (EditText) findViewById (R.id.editTextNumber4);
-                ek[4] = (EditText) findViewById (R.id.editTextNumber5);
-                ek[5] = (EditText) findViewById (R.id.editTextNumber6);
-                ek[6] = (EditText) findViewById (R.id.editTextNumber7);
-                ek[7] = (EditText) findViewById (R.id.editTextNumber8);
-                k[0]= Double.parseDouble(ek[0].getText().toString());
-                double k_k;
-                //随机扭矩系数
-                for (int i = 1; i < 8; i++) {
-                    if(random.nextDouble()>0.75){
-                        k_k = k[0] - 0.012 + random.nextDouble()*0.024;
-                    }else{
-                        k_k = k[0] - 0.008 + random.nextDouble()*0.016;
-                    }
-
-                    ek[i].setText(String.format("%.3f", k_k));
-
-                    //如果不合格置红
-                    if(k_k > 0.15 || k_k < 0.11){
+                yz = Double.parseDouble(editText11.getText().toString());
+                //获取扭矩系数控件
+                for (int i = 0; i < ek.length; i++) {
+                    int resId = getResources().getIdentifier("editTextNumber" + (i + 1), "id", getPackageName());
+                    ek[i] = findViewById(resId);  // 根据 ID 获取对应的 EditText
+                }
+                Log.d("Nj", "获得了扭矩系数");
+                //施拧扭矩
+                for (int i = 0; i < ek.length; i++) {
+                    int resId = getResources().getIdentifier("editTextText" + (i + 21), "id", getPackageName());
+                    EditText ep = findViewById(resId);
+                    k[i] = Double.parseDouble(ek[i].getText().toString());
+                    double pz = yz*d*k[i];
+                    Log.d("Nj", String.format("%.0f",pz));
+                    ep.setText(String.format("%.1f",pz));  //计算施拧扭矩 p，并设置
+                    sum_k += k[i];  // 计算总扭矩系数
+                    //扭矩系数如果不合格置红
+                    if(k[i] > 0.15 || k[i] < 0.11){
                         ek[i].setTextColor(Color.RED);
                     } else {
                         ek[i].setTextColor(Color.parseColor("#000000"));
                     }
                 }
-                //扭矩系数
-                k[1]= Double.parseDouble(ek[1].getText().toString());
-                k[2]= Double.parseDouble(ek[2].getText().toString());
-                k[3]= Double.parseDouble(ek[3].getText().toString());
-                k[4]= Double.parseDouble(ek[4].getText().toString());
-                k[5]= Double.parseDouble(ek[5].getText().toString());
-                k[6]= Double.parseDouble(ek[6].getText().toString());
-                k[7]= Double.parseDouble(ek[7].getText().toString());
-
-                TextView ave= (TextView) findViewById(R.id.textViewave);
-                TextView p1= (TextView) findViewById(R.id.textP1);
-                TextView p2= (TextView) findViewById(R.id.textP2);
-                TextView p3= (TextView) findViewById(R.id.textP3);
-                TextView p4= (TextView) findViewById(R.id.textP4);
-                TextView p5= (TextView) findViewById(R.id.textP5);
-                TextView p6= (TextView) findViewById(R.id.textP6);
-                TextView p7= (TextView) findViewById(R.id.textP7);
-                TextView p8= (TextView) findViewById(R.id.textP8);
-                TextView t1= (TextView) findViewById(R.id.textT1);
-                TextView t2= (TextView) findViewById(R.id.textT2);
-                TextView t3= (TextView) findViewById(R.id.textT3);
-                TextView t4= (TextView) findViewById(R.id.textT4);
-                TextView t5= (TextView) findViewById(R.id.textT5);
-                TextView t6= (TextView) findViewById(R.id.textT6);
-                TextView t7= (TextView) findViewById(R.id.textT7);
-                TextView t8= (TextView) findViewById(R.id.textT8);
-                TextView d2= (TextView) findViewById(R.id.textView59);
-                TextView d3= (TextView) findViewById(R.id.textView60);
-                TextView d4= (TextView) findViewById(R.id.textView61);
-                TextView d5= (TextView) findViewById(R.id.textView62);
-                TextView d6= (TextView) findViewById(R.id.textView63);
-                TextView d7= (TextView) findViewById(R.id.textView64);
-                TextView d8= (TextView) findViewById(R.id.textView65);
+                TextView ave= (TextView) findViewById(R.id.textViewave);  // 平均扭矩系数
                 TextView pc= (TextView) findViewById(R.id.textViewpc);
-
-                //calc
-                sum_k =k[0]+k[1]+k[2]+k[3]+k[4]+k[5]+k[6]+k[7];
-                ave_k = sum_k/8;
-                if(d==30){
-                    p_y = 381;
-                } else if (d==27) {
-                    p_y = 317;
-                } else if (d==24) {
-                    p_y = 248;
-                } else if (d==22) {
-                    p_y = 208;
-                } else if (d==20) {
-                    p_y = 168;
-                } else if (d==16) {
-                    p_y = 109;
-                } else if (d==12) {
-                    p_y = 60;
-                }
-                else p_y=0;
-
+                ave_k = sum_k / 8.0; //calc 平均值
+                editText11.setTextColor(Color.parseColor("#000000"));
+                //预加载力如果不合格置红
+                if(d == 30)
+                    if (yz > 429 || yz < 351) {
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为351~429KN");
+                    }
+                else if(d == 27)
+                    if (yz > 352 || yz < 288){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为288~352KN");
+                    }
+                else if(d == 24)
+                    if (yz > 275 || yz < 225){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为225~275KN");
+                    }
+                else if(d == 22)
+                    if (yz > 231 || yz < 189){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为189~231KN");
+                    }
+                else if(d == 20)
+                    if (yz > 187 || yz < 153){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为153~187KN");
+                    }
+                else if(d == 16)
+                    if (yz > 121 || yz < 99){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为99~121KN");
+                    }
+                else if(d == 12)
+                    if (yz > 66 || yz < 54){
+                        editText11.setTextColor(Color.RED);
+                        showinfo("预加载力应为54~66KN");
+                    }
                 //计算标准偏差
-                pcc = Math.sqrt(
-                        (
-                                (k[1]-ave_k)*(k[1]-ave_k)+
-                                (k[2]-ave_k)*(k[2]-ave_k)+
-                                (k[3]-ave_k)*(k[3]-ave_k)+
-                                (k[4]-ave_k)*(k[4]-ave_k)+
-                                (k[5]-ave_k)*(k[5]-ave_k)+
-                                (k[6]-ave_k)*(k[6]-ave_k)+
-                                (k[7]-ave_k)*(k[7]-ave_k)+
-                                (k[0]-ave_k)*(k[0]-ave_k)
-                        )/7
+                pcc = Math.sqrt((
+                                (k[1]-ave_k)*(k[1]-ave_k)+ (k[2]-ave_k)*(k[2]-ave_k)+ (k[3]-ave_k)*(k[3]-ave_k)+
+                                (k[4]-ave_k)*(k[4]-ave_k)+ (k[5]-ave_k)*(k[5]-ave_k)+ (k[6]-ave_k)*(k[6]-ave_k)+
+                                (k[7]-ave_k)*(k[7]-ave_k)+ (k[0]-ave_k)*(k[0]-ave_k))/7
                 );
-
-                //扭矩系数平均结果
-                ave.setText(String.format("%.3f", ave_k));
-
-                //随机预拉力峰值
-                double rp = random.nextDouble()*0.1+p_y+0.6;
-                for (int i = 0; i < 8; i++) {
-                    p[i] = random.nextDouble()*0.2+rp;
-                }
-
-
                 //如果不合格置红
                 if(pcc > 0.01){
                     pc.setTextColor(Color.RED);
                 }else {
                     pc.setTextColor(Color.parseColor("#000000"));
                 }
-
-                p1.setText(String.format("%.1f", p[0]));
-                p2.setText(String.format("%.1f", p[1]));
-                p3.setText(String.format("%.1f", p[2]));
-                p4.setText(String.format("%.1f", p[3]));
-                p5.setText(String.format("%.1f", p[4]));
-                p6.setText(String.format("%.1f", p[5]));
-                p7.setText(String.format("%.1f", p[6]));
-                p8.setText(String.format("%.1f", p[7]));
-                //计算施拧扭矩T
-                t1.setText(String.format("%.1f", p[0]*d*k[0]));
-                t2.setText(String.format("%.1f", p[1]*d*k[1]));
-                t3.setText(String.format("%.1f", p[2]*d*k[2]));
-                t4.setText(String.format("%.1f", p[3]*d*k[3]));
-                t5.setText(String.format("%.1f", p[4]*d*k[4]));
-                t6.setText(String.format("%.1f", p[5]*d*k[5]));
-                t7.setText(String.format("%.1f", p[6]*d*k[6]));
-                t8.setText(String.format("%.1f", p[7]*d*k[7]));
-                //螺栓规格
-                d2.setText(Integer.toString(d));
-                d3.setText(Integer.toString(d));
-                d4.setText(Integer.toString(d));
-                d5.setText(Integer.toString(d));
-                d6.setText(Integer.toString(d));
-                d7.setText(Integer.toString(d));
-                d8.setText(Integer.toString(d));
+                //扭矩系数平均结果
+                ave.setText(String.format("%.3f", ave_k));
                 //标准偏差
                 pc.setText(String.format("%.4f",pcc));
             }
         });
+    }
+    public void showinfo(String info){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(Nj.this, info, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // 辅助方法：将 int[] 转换为 Integer[]
+    private Integer[] toArray(int[] list) {
+        Integer[] result = new Integer[list.length];
+        for (int i = 0; i < list.length; i++) {
+            result[i] = list[i];  // 将 int 转换为 Integer
+        }
+        return result;
     }
 }

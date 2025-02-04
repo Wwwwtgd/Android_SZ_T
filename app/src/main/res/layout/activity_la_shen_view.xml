@@ -32,6 +32,19 @@
         app:layout_constraintTop_toBottomOf="@+id/button_bc" />
 
     <Button
+        android:id="@+id/button_cx"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="53dp"
+        android:backgroundTint="#2196F3"
+        android:text="材料查询"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_yb" />
+
+    <Button
         android:id="@+id/button_bc"
         android:layout_width="150dp"
         android:layout_height="60dp"

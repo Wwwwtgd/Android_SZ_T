@@ -21,7 +21,7 @@ public class Bc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Random random = new Random();
-                double hou,kuan,rm,rel,shengchang,area,li,li2,duan,dh,dhl;
+                double hou,kuan,rm,rel,shengchang,area,li,li2,duan,dhl,shousuo;
                 int yuan;
                 //get data
                 EditText ehou = (EditText) findViewById (R.id.editTextText2);
@@ -34,6 +34,8 @@ public class Bc extends AppCompatActivity {
                 rel=Double.parseDouble(equfu.getText().toString());
                 EditText eshengchang = (EditText) findViewById (R.id.editTextText6);
                 shengchang=Double.parseDouble(eshengchang.getText().toString());
+                EditText eshousuo = (EditText) findViewById (R.id.editTextText7);
+                shousuo=Double.parseDouble(eshousuo.getText().toString());
                 //get result text
                 TextView yscc= (TextView) findViewById(R.id.textyscc);
                 TextView qfl= (TextView) findViewById(R.id.textqfl);
@@ -46,17 +48,18 @@ public class Bc extends AppCompatActivity {
                 TextView dhcc= (TextView) findViewById(R.id.textdhcc);
                 TextView ssl= (TextView) findViewById(R.id.textssl);
                 //calc
+                /*
                 kuan = kuan - 0.5 + random.nextDouble();
                 hou = hou - 0.5 + random.nextDouble();
                 rel = rel -0.5 + random.nextDouble();
                 rm = rm -0.5 + random.nextDouble();
+                 */
                 area = kuan * hou;
                 li = rel * area /1000.0;
                 li2 = rm * area /1000.0;
                 yuan =(int)((5.56 * Math.sqrt(area) +2.5)/5) *5;
                 duan = (shengchang*0.01 + 1)*yuan;
-                dh = 65 + random.nextDouble()*10;
-                dhl = Math.sqrt(1-0.01*dh);
+                dhl = Math.sqrt(1-0.01*shousuo);
                 yscc.setText(String.format("%.2f", kuan) + "*" + String.format("%.2f", hou));
                 qfl.setText(String.format("%.2f", li));
                 qfqd.setText(String.format("%.2f", rel));
@@ -66,7 +69,7 @@ public class Bc extends AppCompatActivity {
                 dhbj.setText(String.format("%.2f",duan));
                 scl.setText(String.format("%.1f",shengchang));
                 dhcc.setText(String.format("%.2f",dhl*hou) + "*" +String.format("%.2f",dhl*kuan));
-                ssl.setText(String.format("%.2f",dh));
+                ssl.setText(String.format("%.2f",shousuo));
             }
         });
     }

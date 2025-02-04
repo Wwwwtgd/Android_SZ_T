@@ -22,17 +22,19 @@ public class Yb extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Random random = new Random();
-                double r,rm,rel,shengchang,area,li,li2,duan,dh,dhl;
+                double r,rm,rel,shengchang,area,li,li2,duan,shousuo,dhl;
                 int yuan;
                 //get data
                 EditText er = (EditText) findViewById (R.id.editTextText2);
                 r= Double.parseDouble(er.getText().toString());
-                EditText ekangla = (EditText) findViewById (R.id.editTextText5);
+                EditText ekangla = (EditText) findViewById (R.id.editTextText4);
                 rm=Double.parseDouble(ekangla.getText().toString());
-                EditText equfu = (EditText) findViewById (R.id.editTextText4);
+                EditText equfu = (EditText) findViewById (R.id.editTextText5);
                 rel=Double.parseDouble(equfu.getText().toString());
                 EditText eshengchang = (EditText) findViewById (R.id.editTextText6);
                 shengchang=Double.parseDouble(eshengchang.getText().toString());
+                EditText eshousuo = (EditText) findViewById (R.id.editTextText9);
+                shousuo=Double.parseDouble(eshousuo.getText().toString());
                 //get result text
                 TextView yscc= (TextView) findViewById(R.id.textyscc);
                 TextView qfl= (TextView) findViewById(R.id.textqfl);
@@ -45,16 +47,18 @@ public class Yb extends AppCompatActivity {
                 TextView dhcc= (TextView) findViewById(R.id.textdhcc);
                 TextView ssl= (TextView) findViewById(R.id.textssl);
                 //calc
+                /*
                 r = r - 0.03 + random.nextDouble()*0.06;
                 rel = rel -0.5 + random.nextDouble();
                 rm = rm -0.5 + random.nextDouble();
+                 */
                 area = r * r / 4 * 3.1415926;
                 li = rel * area /1000.0;
                 li2 = rm * area /1000.0;
                 yuan =(int)((5 * r +2.5)/5) *5;
                 duan = (shengchang*0.01 + 1)*yuan;
-                dh = 67 + random.nextDouble()*5;
-                dhl = Math.sqrt(1-0.01*dh);
+                //dh = 67 + random.nextDouble()*5;
+                dhl = Math.sqrt(1-0.01*shousuo);
                 yscc.setText("Φ" + String.format("%.2f", r));
                 qfl.setText(String.format("%.2f", li));
                 qfqd.setText(String.format("%.2f", rel));
@@ -64,7 +68,7 @@ public class Yb extends AppCompatActivity {
                 dhbj.setText(String.format("%.2f",duan));
                 scl.setText(String.format("%.1f",shengchang));
                 dhcc.setText("Φ" +String.format("%.2f",dhl*r));
-                ssl.setText(String.format("%.2f",dh));
+                ssl.setText(String.format("%.2f",shousuo));
             }
         });
     }

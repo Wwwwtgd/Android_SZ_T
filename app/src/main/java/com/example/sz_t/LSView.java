@@ -42,7 +42,7 @@ public class LSView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(LSView.this,LsYd.class);
+                intent.setClass(LSView.this,Ls_yd.class);
                 startActivity(intent);
             }
         });

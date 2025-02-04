@@ -9,4 +9,18 @@
         <item>16</item>
         <item>12</item>
     </string-array>
+    <string-array name="standard_spinner">
+        <item>GB/T 714-2015</item>
+        <item>GB/T 1591-2018</item>
+        <item>GB/T 700-2006</item>
+        <item>GB/T 712-2011</item>
+        <item>TB/T 3556-2020</item>
+    </string-array>
+    <string-array name="material_spinner">
+        <item>GB/T 714-2015</item>
+        <item>GB/T 1591-2018</item>
+        <item>GB/T 700-2006</item>
+        <item>GB/T 712-2011</item>
+        <item>TB/T 3556-2020</item>
+    </string-array>
 </resources>

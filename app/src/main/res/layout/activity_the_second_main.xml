@@ -24,7 +24,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
         android:backgroundTint="#2196F3"
-        android:text="拉伸"
+        android:text="钢板"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

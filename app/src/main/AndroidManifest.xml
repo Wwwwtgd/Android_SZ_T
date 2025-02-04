@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,13 +17,16 @@
         android:theme="@style/Theme.SZ_T"
         tools:targetApi="31">
         <activity
-            android:name=".LaShenView"
+            android:name=".Search_Cx"
             android:exported="false" />
         <activity
-            android:name=".LsYd"
+            android:name=".Ls_yd"
             android:exported="false" />
         <activity
             android:name=".Xfz"
+            android:exported="false" />
+        <activity
+            android:name=".LaShenView"
             android:exported="false" />
         <activity
             android:name=".LSView"
