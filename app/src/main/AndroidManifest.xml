@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SZ_T"
         tools:targetApi="31">
+        <activity
+            android:name=".PAUT"
+            android:exported="false" />
+        <activity
+            android:name=".TOFD"
+            android:exported="false" />
+        <activity
+            android:name=".NDT"
+            android:exported="false" />
         <activity
             android:name=".Search_Cx"
             android:exported="false" />

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TheSecondMain">
+    tools:context=".NDT">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
-        android:text="计算类型"
+        android:text="检测方法"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -19,42 +19,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_lashen"
+        android:id="@+id/btn_tofd"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#2196F3"
-        android:text="钢板"
+        android:text="TOFD"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.094" />
 
     <Button
-        android:id="@+id/button_LSView"
+        android:id="@+id/btn_paut"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#2196F3"
-        android:text="螺栓"
+        android:text="PAUT"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_lashen" />
-
-    <Button
-        android:id="@+id/button_NDT"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="52dp"
-        android:backgroundTint="#2196F3"
-        android:text="NDT"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_LSView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.319" />
 </androidx.constraintlayout.widget.ConstraintLayout>

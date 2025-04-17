@@ -16,6 +16,7 @@ public class TheSecondMain extends AppCompatActivity {
 
         Button b_Ls = (Button) findViewById(R.id.btn_lashen);
         Button b_LSView = (Button) findViewById(R.id.button_LSView);
+        Button b_NDT = (Button) findViewById(R.id.button_NDT);
 
         b_Ls.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +36,17 @@ public class TheSecondMain extends AppCompatActivity {
                 Intent intent = new Intent();
                 //前一个（MainActivity.this）是目前页面，后面一个是要跳转的下一个页面
                 intent.setClass(TheSecondMain.this,LSView.class);
+                startActivity(intent);
+            }
+        });
+
+        b_NDT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //监听按钮，如果点击，就跳转
+                Intent intent = new Intent();
+                //前一个（MainActivity.this）是目前页面，后面一个是要跳转的下一个页面
+                intent.setClass(TheSecondMain.this,NDT.class);
                 startActivity(intent);
             }
         });

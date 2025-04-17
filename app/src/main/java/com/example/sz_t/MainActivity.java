@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run(){
                         ip = textip.getText().toString(); //获取局域网ip地址
                         res = dbConnection.getConnection(ip); //尝试连接数据库
-                        if (ip.equals("wwwwtgdtwj")) {
+                        if (ip.equals("00758")) {
                             showinfo((webPageContent != null ? webPageContent : "超级密码") + "，登陆成功");
                             Intent intent2 = new Intent(MainActivity.this, TheSecondMain.class);
                             startActivity(intent2);
